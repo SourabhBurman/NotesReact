@@ -2,8 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { MdEditOff } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 export const Notes = () => {
    const [arr,setArr] = useState([]);
+   const navigate = useNavigate();
+
+
     useEffect(()=> {
         axios.get('https://notesapp-ofp2.onrender.com/notes',{
           headers:{
@@ -11,6 +15,7 @@ export const Notes = () => {
           }
         }).then(res=>setArr(res.data.notes)).catch(err=>console.log(err))
     },[])
+
     const handleDelete = (id)=> {
       axios.delete(`https://notesapp-ofp2.onrender.com/notes/${id}`,{
         headers:{
@@ -19,6 +24,8 @@ export const Notes = () => {
       }).then(res=>console.log(res.data)).catch(err=>console.log(err))
       setArr(arr.filter(e=>e._id!=id))
     }
+
+ 
   return (
     <>
     <h2>Notes</h2>
@@ -27,7 +34,7 @@ export const Notes = () => {
             <h3>title : {ele.title}</h3>
             <h4>body : {ele.body}</h4>
             <div style={{display:"flex", justifyContent:"space-around" ,padding:"2%"}}>
-              <button><MdEditOff /></button>
+              <button onClick={()=>navigate(`/edit/${ele._id}`)}><MdEditOff /></button>
               <button onClick={()=>handleDelete(ele._id)}><MdDeleteForever /></button>
 
             </div>

@@ -4,6 +4,7 @@ import { Account } from './Pages/Account';
 import { Notes } from './Pages/Notes';
 import { Navbar } from './Components/Navbar';
 import { AddPost } from './Components/AddPost';
+import { Edit } from './Components/Edit';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" element={<Notes />}/>
       <Route path="/account" element={<Account />}/>
       <Route path='/addPost' element={<AddPost />}/>
+      <Route path='/edit/:id' element = {<Edit />} />
     </Routes>
     </>
   )
